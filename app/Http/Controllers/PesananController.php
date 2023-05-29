@@ -58,10 +58,18 @@ class PesananController extends Controller
     {
         // $homestays = Homestay::all();
         // $pesanans =  Pesanan::all();
-        $pesanans =  Pemesan::find(Auth::user()->id)->pesanan;
-        if($pesanans == null){
-            $pesanan = [];
+        // $check = ;
+        // dd($check);
+        // $pesanans = [];
+        // dd(User::find(Auth::user()->id)->pemesan->id);
+        $pemesan_id = User::find(Auth::user()->id)->pemesan->id;
+
+        if(count(Pesanan::where('pemesan_id', $pemesan_id)->get()) < 1){
+            $pesanans = [];
+        }else{
+            $pesanans = Pesanan::where('pemesan_id', $pemesan_id)->get();
         }
+
 
         // $banks = Homestay::find(3)->pemilik->bank;
         return view('user.pesanan', compact(['pesanans']));
@@ -101,31 +109,67 @@ class PesananController extends Controller
      */
     public function store(Request $request, $id)
     {
-        $request->validate([
-            'tanggal_mulai' =>  'required',
-            'tanggal_berakhir' => 'required'
-        ]);
-        $start = \Carbon\Carbon::parse($request->tanggal_mulai);
+        if($request->transportasi != null){
+            // dd($request->transportasi);
+            $request->validate([
+                'tanggal_mulai' =>  'required',
+                'tanggal_berakhir' => 'required'
+            ]);
+            $start = \Carbon\Carbon::parse($request->tanggal_mulai);
 
-        // Tanggal akhir
-        $end = \Carbon\Carbon::parse($request->tanggal_berakhir);
+            // Tanggal akhir
+            $end = \Carbon\Carbon::parse($request->tanggal_berakhir);
 
-        // Menghitung selisih hari
-        $diffInDays = $start->diffInDays($end);
-        $total_harga = Homestay::find($id)->harga * $diffInDays;
+            // Menghitung selisih hari
+            $diffInDays = $start->diffInDays($end);
+            $total_harga = Homestay::find($id)->harga * $diffInDays;
+            if($request->transportasi == 'ya'){
+                $total_harga = $total_harga + Homestay::find($id)->transportasi->harga;
+            }
 
-        $pemesan_id = User::find(Auth::user()->id)->pemesan->id;
+            $pemesan_id = User::find(Auth::user()->id)->pemesan->id;
 
-        Pesanan::create([
-            'pemesan_id' => $pemesan_id,
-            'homestay_id' => $id,
-            'tanggal_mulai' => $request->tanggal_mulai,
-            'tanggal_berakhir' => $request->tanggal_berakhir,
-            'total_harga' => $total_harga,
-            'status' => 'menunggu pembayaran'
-        ]);
+            Pesanan::create([
+                'pemesan_id' => $pemesan_id,
+                'homestay_id' => $id,
+                'tanggal_mulai' => $request->tanggal_mulai,
+                'tanggal_berakhir' => $request->tanggal_berakhir,
+                'total_harga' => $total_harga,
+                'transportasi' => $request->transportasi,
+                'status' => 'menunggu pembayaran'
+            ]);
+            return redirect('/pesanan_user');
+        }else{
 
-        return redirect('/pesanan_user');
+            $request->validate([
+                'tanggal_mulai' =>  'required',
+                'tanggal_berakhir' => 'required'
+            ]);
+            $start = \Carbon\Carbon::parse($request->tanggal_mulai);
+
+            // Tanggal akhir
+            $end = \Carbon\Carbon::parse($request->tanggal_berakhir);
+
+            // Menghitung selisih hari
+            $diffInDays = $start->diffInDays($end);
+            $total_harga = Homestay::find($id)->harga * $diffInDays;
+
+            $pemesan_id = User::find(Auth::user()->id)->pemesan->id;
+
+            Pesanan::create([
+                'pemesan_id' => $pemesan_id,
+                'homestay_id' => $id,
+                'tanggal_mulai' => $request->tanggal_mulai,
+                'tanggal_berakhir' => $request->tanggal_berakhir,
+                'total_harga' => $total_harga,
+                'transportasi' => "tidak",
+                'status' => 'menunggu pembayaran'
+            ]);
+            return redirect('/pesanan_user');
+        }
+
+
+
     }
 
     /**

@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\PagesController::class, 'dashboard']);
+Route::get('/register_homestay', [App\Http\Controllers\AdminController::class, 'register_homestay']);
+Route::get('/list', [App\Http\Controllers\PagesController::class, 'listHomestay']);
 Route::get('/home', [App\Http\Controllers\PagesController::class, 'home']);
 
 
@@ -29,6 +31,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // homestay
     Route::get('/homestay', [App\Http\Controllers\HomestayController::class, 'indexAdmin']);
+    Route::get('/homestay/tersedia', [App\Http\Controllers\HomestayController::class, 'tersedia']);
+    Route::get('/homestay/dibooking', [App\Http\Controllers\HomestayController::class, 'dibooking']);
+    Route::get('/homestay/digunakan', [App\Http\Controllers\HomestayController::class, 'digunakan']);
     Route::post('/homestay/store', [App\Http\Controllers\HomestayController::class, 'store']);
     Route::post('/homestay/update/{id}', [App\Http\Controllers\HomestayController::class, 'update']);
     Route::post('/homestay/destroy/{id}', [App\Http\Controllers\HomestayController::class, 'destroy']);
@@ -48,6 +53,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // pesanan
     Route::get('/pesanan', [App\Http\Controllers\PagesController::class, 'pesanan']);
     Route::post('/pembayaran/konfirmasi/{id}', [App\Http\Controllers\PesananController::class, 'konfirmasiPembayaran']);
+
+    // profile admin
+    Route::get('/profile_admin', [App\Http\Controllers\AdminController::class, 'profile_admin']);
+    Route::post('/profile_admin/update', [App\Http\Controllers\AdminController::class, 'update']);
+
+    // transportasi
+    Route::post('/transportasi/store', [App\Http\Controllers\TransportasiController::class, 'store']);
 
 });
 

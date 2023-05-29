@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
+
+    public function profile_admin(){
+        $admin = Admin::where('user_id', Auth::user()->id)->get()->last();
+        return view('admin.profile', compact(['admin']));
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,6 +21,15 @@ class AdminController extends Controller
     public function index()
     {
         //
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function register_homestay()
+    {
+        return view('auth.register_homestay');
     }
 
     /**
@@ -67,9 +82,17 @@ class AdminController extends Controller
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request)
     {
-        //
+        $validate = $request->validate([
+            'nama' => 'required',
+            'no_telephone' => 'required',
+            'alamat' => 'required',
+        ]);
+
+        Admin::where('user_id', Auth::user()->id)->update($validate);
+
+        return redirect('/profile_admin');
     }
 
     /**

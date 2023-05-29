@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Pemesan;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -66,26 +67,34 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
-        // Pemesan::create([
-        //     'user_id' => $user_id,
-        //     'nama' => $data['name'],
-        //     'no_telephone' => 0,
-        //     'alamat' => ''
-        // ]);
 
-        User::create([
+
+        $user_registered = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role' => "user",
+            'role' => $data['role'],
         ]);
+
         $user = User::get()->last();
         $user_id = $user->id;
-        return Pemesan::create([
-            'user_id' => $user_id,
-            'nama' => $data['name'],
-            'no_telephone' => 0,
-            'alamat' => ''
-        ]);
+        if($data['role'] == 'user'){
+            Pemesan::create([
+                'user_id' => $user_id,
+                'nama' => $data['name'],
+                'no_telephone' => 0,
+                'alamat' => ''
+            ]);
+        }else{
+            Admin::create([
+                'user_id' => $user_id,
+                'nama' => $data['name'],
+                'no_telephone' => 0,
+                'alamat' => ''
+            ]);
+        }
+
+        return $user_registered;
+
     }
 }

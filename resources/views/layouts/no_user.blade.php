@@ -35,19 +35,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
                         <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/homestay_user">Homestay</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/pesanan_user">Pesanan</a></li>
-                        <li class="nav-item">
-                            <form action="{{ route('logout') }}" method="post">
-                                @csrf
-                                {{-- <a class="nav-link">Logout</a> --}}
-                                <button class="nav-link btn btn-link">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </button>
-                            </form>
-                        </li>
-
+                        <li class="nav-item"><a class="nav-link" href="/list">Homestay</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{route('login')}}">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{route('register')}}">Register</a></li>
                     </ul>
                 </div>
             </div>

@@ -4,12 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Homestay;
+use App\Models\Transportasi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomestayController extends Controller
 {
+    public function tersedia(){
+        $homestays = Homestay::where('status', 'tersedia')->get();
+        return view('admin.homestay_tersedia', compact(['homestays']));
+    }
+
+    public function dibooking(){
+        $homestays = Homestay::where('status', 'sedang_dibooking')->get();
+        return view('admin.homestay_tersedia', compact(['homestays']));
+    }
+
+    public function digunakan(){
+        $homestays = Homestay::where('status', 'sedang_digunakan')->get();
+        return view('admin.homestay_tersedia', compact(['homestays']));
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +33,12 @@ class HomestayController extends Controller
     public function indexUser()
     {
         $homestays = Homestay::all();
-        return view('user.homestay', compact('homestays'));
+        $transportasi = Transportasi::all();
+        // $homestay = Homestay::find(7);
+        // $transportasi = $homestay->transportasi;
+        // dd($transportasi->nama);
+
+        return view('user.homestay', compact('homestays', 'transportasi'));
     }
 
     /**
@@ -28,11 +48,15 @@ class HomestayController extends Controller
      */
     public function indexAdmin()
     {
-        // $admin_id = User::find(Auth::user()->id)->admin->id;
+        $admin_id = User::find(Auth::user()->id)->admin->id;
+        // dd($admin_id);
         // $homestays = Homestay::where("pemilik_id", $admin_id);
-        $homestays = Homestay::all();
+        $akun = Admin::where('user_id', Auth::user()->id)->get()->last();
+        $homestays = Homestay::where('pemilik_id', $admin_id)->get();
+        $transportasi = Transportasi::where('homestay_id', $homestays[0]->id)->get();
+        // dd($transportasi);
 
-        return view("admin.homestay", compact(['homestays']));
+        return view("admin.homestay", compact(['homestays', 'akun', 'transportasi']));
     }
 
     /**

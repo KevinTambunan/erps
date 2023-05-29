@@ -20,8 +20,8 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <a type="button" class="btn btn-block btn-success" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal{{$homestay->id}}">Pesan Sekarang</a>
-                                    <div class="modal fade" id="exampleModal{{$homestay->id}}" tabindex="-1"
+                                        data-bs-target="#exampleModal{{ $homestay->id }}">Pesan Sekarang</a>
+                                    <div class="modal fade" id="exampleModal{{ $homestay->id }}" tabindex="-1"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -45,9 +45,30 @@
                                                             <input type="date" class="form-control" id="tanggal_berakhir"
                                                                 name="tanggal_berakhir">
                                                         </div>
-                                                        <div class="m-3"></div>
+                                                        @foreach ($transportasi as $item)
+                                                            @if ($item->homestay_id == $homestay->id)
+                                                                <p class="mt-3">Apakah anda ingin di jemput?</p>
+                                                                <Span>Transportasi {{$item->nama_transportasi}} dengan harga Rp.{{$item->harga}} <br> </Span>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="transportasi" id="inlineRadio1"
+                                                                        value="ya">
+                                                                    <label class="form-check-label"
+                                                                        for="inlineRadio1">Ya</label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="transportasi" id="inlineRadio2"
+                                                                        value="tidak">
+                                                                    <label class="form-check-label"
+                                                                        for="inlineRadio2">Tidak</label>
+                                                                </div>
+                                                                <div class="m-3"></div>
+                                                            @endif
+                                                        @endforeach
+
                                                         <button type="submit"
-                                                            class="btn btn-primary btn-block">Submit</button>
+                                                            class="btn btn-primary btn-block mt-3">Pesan</button>
                                                     </form>
                                                 </div>
                                             </div>

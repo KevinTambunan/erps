@@ -69,9 +69,9 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Homestay</h6>
                         <a class="collapse-item" href="/homestay">List Homestay</a>
-                        <a class="collapse-item" href="buttons.html">Tersedia</a>
-                        <a class="collapse-item" href="buttons.html">Sedang Dibooking</a>
-                        <a class="collapse-item" href="buttons.html">Sedang Digunakan</a>
+                        <a class="collapse-item" href="/homestay/tersedia">Tersedia</a>
+                        <a class="collapse-item" href="/homestay/dibooking">Sedang Dibooking</a>
+                        <a class="collapse-item" href="/homestay/digunakan">Sedang Digunakan</a>
                     </div>
                 </div>
             </li>
@@ -108,7 +108,7 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="/profile_admin">
                     <i class="fa-solid fa-user"></i>
                     <span>Profil Pemilik</span></a>
             </li>
@@ -121,11 +121,6 @@
             </li>
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fa-solid fa-key"></i>
-                    <span>Ganti Password</span></a>
-            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -318,7 +313,9 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+
+                                </span>
                                 <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->

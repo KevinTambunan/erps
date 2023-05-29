@@ -25,4 +25,8 @@ class Homestay extends Model
     public function pesanan(){
         return $this->hasMany(Pesanan::class);
     }
+
+    public function transportasi(){
+        return $this->hasOne(Transportasi::class);
+    }
 }

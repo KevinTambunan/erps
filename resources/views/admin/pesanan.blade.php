@@ -29,7 +29,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($pesanans as $pesanan)
+                            @foreach ($homestay as $item)
+                                @foreach ($item->pesanan as $pesanan)
                                 <tr>
                                     <td>{{ $pesanan->pemesan->nama }}</td>
                                     <td>{{ $pesanan->homestay->nama }}</td>
@@ -156,6 +157,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
+
                             @endforeach
                         </tbody>
                     </table>

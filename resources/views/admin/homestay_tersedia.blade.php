@@ -6,9 +6,9 @@
     <div class="container-fluid">
 
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Akun Bank</h1>
-        <p>Akun Bank yang anda miliki</p>
-        <button class="btn btn-primary mb-4" data-toggle="modal" data-target="#exampleModal">Tambah Akun Bank</button>
+        <h1 class="h3 mb-2 text-gray-800">Homestay</h1>
+        <p>Homestay yang anda miliki</p>
+        <button class="btn btn-primary mb-4" data-toggle="modal" data-target="#exampleModal">Tambah Homestay</button>
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
@@ -20,89 +20,16 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>Nama Bank</th>
-                                <th>Nama Pemilik</th>
-                                <th>Nomor Rekening</th>
+                                <th>Nama</th>
+                                <th>Alamat</th>
+                                <th>Rating</th>
+                                <th>Harga</th>
+                                <th>Gambar</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($banks as $bank)
-                                <tr>
-                                    <td>{{ $bank->nama_bank }}</td>
-                                    <td>{{ $bank->nama }}</td>
-                                    <td>{{ $bank->nomor_rekening }}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#tambahfoto{{$bank->id}}">Edit</button>
-                                        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#hapusfoto{{$bank->id}}">Hapus</button>
-                                    </td>
-                                </tr>
-                                <div class="modal fade" id="tambahfoto{{$bank->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Edit {{$bank->nama}}</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form method="POST" action="/bank/update/{{$bank->id}}" enctype="multipart/form-data">
-                                                    @csrf
-                                                    <input type="hidden" value="{{ $admin_id }}" name="admin_id">
-                                                    <div class="form-group">
-                                                        <label for="exampleInputEmail1">Nama Akun Bank</label>
-                                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                                            name="nama" value="{{$bank->nama}}">
-                                                        <small id="emailHelp" class="form-text text-muted">Masukkan nama lengkap akun anda</small>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="exampleFormControlSelect2">Nama Bank</label>
-                                                        <select class="form-control" id="exampleFormControlSelect2" name="nama_bank">
-                                                            <option>BNI</option>
-                                                            <option>BRI</option>
-                                                            <option>Mandiri</option>
-                                                            <option>BCA</option>
-                                                            <option>Bank Nobu</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="nomor_rekening">Nomor Rekening</label>
-                                                        <input type="number" class="form-control" id="nomor_rekening" name="nomor_rekening"  value="{{$bank->nomor_rekening}}">
-                                                        <small id="emailHelp" class="form-text text-muted">Pastikan nomor rekening benar</small>
-                                                    </div>
-
-                                                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal fade" id="hapusfoto{{$bank->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Hapus {{$bank->nama}}</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form method="POST" action="/bank/destroy/{{$bank->id}}" enctype="multipart/form-data">
-                                                    @csrf
-                                                    <input type="hidden" value="{{ $admin_id }}" name="admin_id">
-                                                    <h4>Anda yakin ingin menghapus akun bank {{$bank->nama}} ??</h4>
-                                                    <button type="submit" class="btn btn-primary btn-block">Ya</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-
-                            {{-- @foreach ($homestays as $homestay)
+                            @foreach ($homestays as $homestay)
                                 <tr>
                                     <td>{{$homestay->nama}}</td>
                                     <td>{{$homestay->alamat}}</td>
@@ -207,7 +134,7 @@
                                         </div>
                                     </div>
                                 </tr>
-                            @endforeach --}}
+                            @endforeach
 
                         </tbody>
                     </table>
@@ -221,39 +148,38 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Akun Bank</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Homestay</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="/bank/store" enctype="multipart/form-data">
+                    <form method="POST" action="/homestay/store" enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" value="{{ $admin_id }}" name="admin_id">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Nama Akun Bank</label>
+                            <label for="exampleInputEmail1">Nama Homestay</label>
                             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                                 name="nama">
-                            <small id="emailHelp" class="form-text text-muted">Masukkan nama lengkap akun anda</small>
+                            <small id="emailHelp" class="form-text text-muted">Berikan nama yang bagus untuk homestay
+                                anda!</small>
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleFormControlSelect2">Nama Bank</label>
-                            <select class="form-control" id="exampleFormControlSelect2" name="nama_bank">
-                                <option>BNI</option>
-                                <option>BRI</option>
-                                <option>Mandiri</option>
-                                <option>BCA</option>
-                                <option>Bank Nobu</option>
-                            </select>
+                            <label for="alamat">Alamat</label>
+                            <textarea class="form-control" id="alamat" name="alamat" rows="3"></textarea>
                         </div>
 
                         <div class="form-group">
-                            <label for="nomor_rekening">Nomor Rekening</label>
-                            <input type="number" class="form-control" id="nomor_rekening" name="nomor_rekening">
-                            <small id="emailHelp" class="form-text text-muted">Pastikan nomor rekening benar</small>
+                            <label for="harga">Harga</label>
+                            <input type="number" class="form-control" id="harga" name="harga">
+                            <small id="emailHelp" class="form-text text-muted">Harga homestay perhari</small>
                         </div>
 
+                        <div class="custom-file mb-3">
+                            <input type="file" class="custom-file-input" id="validatedCustomFile" required
+                                name="gambar">
+                            <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                        </div>
                         <button type="submit" class="btn btn-primary btn-block">Submit</button>
                     </form>
                 </div>

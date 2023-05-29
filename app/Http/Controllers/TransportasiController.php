@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bank;
+use App\Models\Transportasi;
 use Illuminate\Http\Request;
 
-class BankController extends Controller
+class TransportasiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,26 +35,36 @@ class BankController extends Controller
      */
     public function store(Request $request)
     {
+        $product_image = $request->file('foto');
+        $gambar = $product_image->getClientOriginalName();
+        $tujuan_upload = './assets/images';
+        $product_image->move($tujuan_upload, $gambar);
+
         $validate = $request->validate([
-            'nama' => 'required',
-            'admin_id' => 'required',
-            'nama_bank' => 'required',
-            'nomor_rekening' => 'required'
+            'homestay_id' => 'required',
+            'nama_supir' => 'required',
+            'nama_transportasi' => 'required',
+            'harga' => 'required',
         ]);
 
+        Transportasi::create([
+            'homestay_id' => $request->homestay_id,
+            'nama_supir' => $request->nama_supir,
+            'nama_transportasi' => $request->nama_transportasi,
+            'harga' => $request->harga,
+            'foto' => $gambar,
+        ]);
 
-        Bank::create($validate);
-
-        return redirect('/akunBank');
+        return redirect('/homestay');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Bank  $bank
+     * @param  \App\Models\Transportasi  $transportasi
      * @return \Illuminate\Http\Response
      */
-    public function show(Bank $bank)
+    public function show(Transportasi $transportasi)
     {
         //
     }
@@ -62,10 +72,10 @@ class BankController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Bank  $bank
+     * @param  \App\Models\Transportasi  $transportasi
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bank $bank)
+    public function edit(Transportasi $transportasi)
     {
         //
     }
@@ -74,34 +84,22 @@ class BankController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Bank  $bank
+     * @param  \App\Models\Transportasi  $transportasi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Transportasi $transportasi)
     {
-        $validate = $request->validate([
-            'nama' => 'required',
-            'pemilik_id' => 'required',
-            'nama_bank' => 'required',
-            'nomor_rekening' => 'required'
-        ]);
-
-
-        Bank::where('id', $id)->update($validate);
-
-        return redirect('/akunBank');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Bank  $bank
+     * @param  \App\Models\Transportasi  $transportasi
      * @return \Illuminate\Http\Response
      */
-    public function destroy($bank)
+    public function destroy(Transportasi $transportasi)
     {
-        Bank::where('id', $bank)->delete();
-
-        return redirect('/akunBank');
+        //
     }
 }

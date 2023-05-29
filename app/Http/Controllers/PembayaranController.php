@@ -41,9 +41,8 @@ class PembayaranController extends Controller
         $gambar = $product_image->getClientOriginalName();
         $tujuan_upload = './assets/images';
         $product_image->move($tujuan_upload, $gambar);
-
         Pembayaran::create([
-            'pengirim_id' => $pengirim,
+            'pengirim_id' => 1,
             'penerima_id' => $tujuan,
             'pesanan_id' => $pesanan,
             'bukti_pembayaran' => $gambar
