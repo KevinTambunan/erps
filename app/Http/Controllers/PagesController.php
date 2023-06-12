@@ -2,53 +2,86 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
-use App\Models\Bank;
-use App\Models\Homestay;
-use App\Models\Pesanan;
-use App\Models\User;
+use App\Models\Erp;
+use App\Models\FunctionArea;
+use App\Models\Fungsionalitas;
+use App\Models\Modul;
+use App\Models\OtherRequirement;
+use App\Models\Type;
+use App\Models\UserNeed;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PagesController extends Controller
 {
-    public function listHomestay(){
-        $homestays = Homestay::where('status', 'tersedia')->get();
-        return view('list', compact(['homestays']));
+    public function welcome(){
+        return view('welcome');
     }
 
-    public function dashboard()
-    {
-        if (Auth::user() != null) {
-            if (Auth::user()->role == "admin") {
-                return view('admin.dashboard');
-            } else {
-                return view('user.index');
-            }
-        } else {
-            return view('welcome');
+    public function home(){
+        return view('admin.index');
+    }
+
+    public function erp($id){
+        $feedback = session('feedback');
+        $error = session('error');
+        $erp = Erp::where('id', $id)->get()->last();
+        if($erp == null){
+            $erp = null;
         }
-    }
-    public function home()
-    {
-        if (Auth::user()->role == "admin") {
-            return view('admin.dashboard');
-        } else {
-            return view('user.index');
-        }
+        $erps = Erp::all();
+        return view('admin.erp', compact(['erp', 'erps', 'feedback', 'error']));
     }
 
-    public function akunBank(){
-        $admin_id = User::find(Auth::user()->id)->admin->id;
-        $banks = Bank::where('admin_id', $admin_id)->get();
-        return view('admin.bank', compact(['banks', 'admin_id']));
+    public function erp_create(){
+        return view('admin.erp-create');
     }
 
-    public function pesanan(){
-        $admin_id = User::find(Auth::user()->id)->admin->id;
-        $homestay = Homestay::where('pemilik_id', $admin_id)->get();
-        $pesanans = Pesanan::all();
-        return view('admin.pesanan', compact(['pesanans', 'homestay']));
+    public function modul(){
+        $moduls = Modul::all();
+        $erp = Erp::all();
+        // dd($moduls);
+        return view('admin.modul', compact(['moduls', 'erp']));
+    }
 
+    public function fungsionalitas(){
+        $moduls = Modul::all();
+        $erp = Erp::all();
+        $fungsionalitas = Fungsionalitas::all();
+        // dd($moduls);
+        return view('admin.fungsionalitas', compact(['moduls', 'erp', 'fungsionalitas']));
+    }
+
+    public function function_area(){
+        $moduls = Modul::all();
+        $erp = Erp::all();
+        $fungsionalitas = Fungsionalitas::all();
+        $function_area = FunctionArea::all();
+        // dd($moduls);
+        return view('admin.function-area', compact(['moduls', 'erp', 'fungsionalitas', 'function_area']));
+    }
+
+    public function user_need(){
+        $moduls = Modul::all();
+        $erp = Erp::all();
+        $user_needs = UserNeed::all();
+        // dd($moduls);
+        return view('admin.user-need', compact(['erp', 'user_needs']));
+    }
+    
+    public function type(){
+        $type = Type::all();
+        $erp = Erp::all();
+        $user_needs = UserNeed::all();
+        // dd($moduls);
+        return view('admin.type', compact(['erp', 'user_needs', 'type']));
+    }
+
+    public function other_requirement(){
+        $type = Type::all();
+        $erp = Erp::all();
+        $other_requirement = OtherRequirement::all();
+        // dd($moduls);
+        return view('admin.other-requirement', compact(['erp', 'other_requirement', 'type']));
     }
 }

@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+class FunctionArea extends Model
 {
     use HasFactory;
-
     protected $guarded = [];
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function erp(){
+        return $this->belongsToMany(Erp::class, 'function_area_erps')->withPivot('bobot');
     }
 }

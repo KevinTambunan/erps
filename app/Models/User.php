@@ -47,7 +47,7 @@ class User extends Authenticatable
         return $this->hasOne(Admin::class);
     }
 
-    public function pemesan(){
-        return $this->hasOne(Pemesan::class);
+    public function owner(){
+        return $this->hasOne(Owner::class);
     }
 }
