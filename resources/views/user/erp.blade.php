@@ -5,7 +5,9 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h4 class="mr-3">ERP {{ $erp->name }}</h4>
+            @if ($erp != null)
+                <h4 class="mr-3">ERP {{ $erp->name }}</h4>
+            @endif
 
             <div class="d-none d-sm-inline-block">
                 @foreach ($erps as $item)

@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('erp_recomendations', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('erp_id');
+
+            $table->foreign('user_id')->on('users')->references('id');
+            $table->foreign('erp_id')->on('erps')->references('id');
             $table->timestamps();
         });
     }

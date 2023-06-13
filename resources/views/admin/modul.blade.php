@@ -57,7 +57,11 @@
                                                 <tr>
                                                     <td>{{ $modul->name }}</td>
                                                     @foreach ($erp as $item)
-                                                        <td>{{ $item->modul[$iteration]->pivot->bobot }}</td>
+                                                        @if (count($item->modul) < 1)
+                                                            <td>None</td>
+                                                        @else
+                                                            <td>{{ $item->modul[$iteration]->pivot->bobot }}</td>
+                                                        @endif
                                                     @endforeach
                                                     @php
                                                         $iteration++;

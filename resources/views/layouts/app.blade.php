@@ -50,9 +50,9 @@
                             @endif
 
                             {{-- @if (Route::has('register')) --}}
-                                {{-- <li class="nav-item">
-                                    <a class="nav-link" href="{{ '/register_homestay' }}">{{ __('Register Homestay') }}</a>
-                                </li> --}}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ '/register_admin' }}">{{ __('Register Admin') }}</a>
+                                </li>
                             {{-- @endif --}}
                         @else
                             <li class="nav-item dropdown">

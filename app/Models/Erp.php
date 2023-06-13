@@ -34,4 +34,8 @@ class Erp extends Model
     public function otherrequirement(){
         return $this->hasOne(OtherRequirement::class);
     }
+
+    public function erprecomendation(){
+        return $this->hasOne(ErpRecomendation::class);
+    }
 }

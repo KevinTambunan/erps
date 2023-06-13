@@ -91,6 +91,8 @@ class RegisterController extends Controller
             ]);
         } else {
             Admin::create([
+                'name' => $name,
+                'image' => "",
                 'user_id' => $user_registered->id
             ]);
         }

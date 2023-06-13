@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use PDO;
 
 class User extends Authenticatable
 {
@@ -49,5 +50,13 @@ class User extends Authenticatable
 
     public function owner(){
         return $this->hasOne(Owner::class);
+    }
+
+    public function company(){
+        return $this->hasOne(Owner::class);
+    }
+
+    public function erprecomendation(){
+        return $this->hasOne(ErpRecomendation::class);
     }
 }

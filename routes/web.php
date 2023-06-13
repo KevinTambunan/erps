@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\PagesController::class, 'welcome']);
+Route::get('/register_admin', [App\Http\Controllers\PagesController::class, 'register_admin']);
 
 Route::get('/home', [App\Http\Controllers\PagesController::class, 'home']);
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -87,4 +88,25 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/erp_user/{id}', [App\Http\Controllers\PagesController::class, 'erp_user']);
     Route::get('/erp_recomendation', [App\Http\Controllers\PagesController::class, 'erp_recomendation']);
     Route::post('erp-recomendation/store', [App\Http\Controllers\ErpRecomendationController::class, 'store']);
+    Route::get('/erp_report', [App\Http\Controllers\PagesController::class, 'erp_report']);
+
+    // owner
+    Route::get('/owner', [App\Http\Controllers\OwnerController::class, 'index']);
+    Route::get('/owner/create', [App\Http\Controllers\OwnerController::class, 'create']);
+    Route::get('/owner/edit/{id}', [App\Http\Controllers\OwnerController::class, 'edit']);
+    Route::post('/owner/store', [App\Http\Controllers\OwnerController::class, 'store']);
+    Route::post('/owner/update/profile/{id}', [App\Http\Controllers\OwnerController::class, 'updateProfile']);
+    Route::post('/owner/update/{id}', [App\Http\Controllers\OwnerController::class, 'update']);
+    Route::post('/owner/destroy/{id}', [App\Http\Controllers\OwnerController::class, 'destroy']);
+
+    // company
+    Route::get('/company', [App\Http\Controllers\CompanyController::class, 'index']);
+    Route::get('/company/create', [App\Http\Controllers\CompanyController::class, 'create']);
+    Route::get('/company/edit/{id}', [App\Http\Controllers\CompanyController::class, 'edit']);
+    Route::post('/company/store', [App\Http\Controllers\CompanyController::class, 'store']);
+    Route::post('/company/update/{id}', [App\Http\Controllers\CompanyController::class, 'update']);
+    Route::post('/company/destroy/{id}', [App\Http\Controllers\CompanyController::class, 'destroy']);
+
+    // profile
+    Route::get('/profile', [App\Http\Controllers\PagesController::class, 'profile']);
 });

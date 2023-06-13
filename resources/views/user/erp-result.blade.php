@@ -74,6 +74,13 @@
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
+                <a class="nav-link" href="/modul">
+                    {{-- <i class="fas fa-fw fa-table"></i> --}}
+                    <i class="fa-fw fa-solid fa-file"></i>
+                    <span>Modul</span></a>
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
                 <a class="nav-link" href="/erp_recomendation">
                     {{-- <i class="fas fa-fw fa-table"></i> --}}
                     <i class="fa-fw fa-solid fa-bullseye"></i>
@@ -81,21 +88,28 @@
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="/erp_report">
+                <a class="nav-link" href="/function_area">
                     {{-- <i class="fas fa-fw fa-table"></i> --}}
                     <i class="fa-fw fa-solid fa-layer-group"></i>
                     <span>Report</span></a>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="/owner">
+                <a class="nav-link" href="/user_need">
+                    {{-- <i class="fas fa-fw fa-table"></i> --}}
+                    <i class="fa-fw fa-solid fa-user"></i>
+                    <span>ERP Usage</span></a>
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link" href="/type">
                     {{-- <i class="fas fa-fw fa-table"></i> --}}
                     <i class="fa-fw fa-brands fa-slack"></i>
                     <span>Owner</span></a>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="/company">
+                <a class="nav-link" href="/other_requirement">
                     {{-- <i class="fas fa-fw fa-table"></i> --}}
                     <i class="fa-fw fa-solid fa-hashtag"></i>
                     <span>Company</span></a>
@@ -257,7 +271,61 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                @yield('content')
+                <div class="container-fluid">
+
+                    <a href="/erp_recomendation" class="btn btn-primary mb-4"><i class="fa-solid fa-backward fa-sm"></i> Kembali</a>
+                    <div class="row">
+                        <!-- Area Chart -->
+                        <div class="col-xl-5 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Chart Result</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button"
+                                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-pie pt-4 pb-2">
+                                        <canvas id="res"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-7 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Erp Recomendation</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button"
+                                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <img src="{{ asset('assets/image/' . $erp->image) }}" alt=""
+                                        srcset="" style="max-height: 150px">
+                                        
+                                    <p class="mt-2">{{ $erp->description }}</p>
+                                    <span>Link Download</span>
+                                    <a href="{{ $erp->link }}">{{ $erp->link }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
                 <!-- /.container-fluid -->
 
             </div>
@@ -312,6 +380,53 @@
     <!-- Page level custom scripts -->
     <script src={{ asset('assets/js/vendor/chart-area.js') }}></script>
     <script src={{ asset('assets/js/vendor/chart-pie.js') }}></script>
+
+    <script>
+        var data = @json($result);
+        var erp = @json($erps);
+        var nama = [];
+        erp.forEach(element => {
+            nama.push(element.name);
+        });
+
+        // Set new default font family and font color to mimic Bootstrap's default styling
+        Chart.defaults.global.defaultFontFamily = 'Nunito',
+            '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontColor = '#858796';
+
+        // Pie Chart Example
+        var ctx = document.getElementById("res");
+        var myPieChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: nama,
+                datasets: [{
+                    data: data,
+                    backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+                    hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }],
+            },
+            options: {
+                display: true,
+                maintainAspectRatio: false,
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    caretPadding: 10,
+                },
+                legend: {
+                    display: false
+                },
+                cutoutPercentage: 0,
+            },
+        });
+    </script>
 
 </body>
 
