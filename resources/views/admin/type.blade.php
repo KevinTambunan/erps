@@ -12,9 +12,9 @@
                         <div>
 
                             <h6 class="m-0 font-weight-bold text-primary mb-2">Type</h6>
-                            <a href="/user-need-create" class=" btn btn-sm btn-primary shadow-sm"><i
-                                    class="fa-solid fa-gear fa-sm text-white-50"></i>
-                                Add Type</a>
+                            <a href="/type-create" class=" btn btn-sm btn-primary shadow-sm"><i
+                                class="fa-solid fa-gear fa-sm text-white-50"></i>
+                            Add Type</a>
                         </div>
 
                         <div class="dropdown no-arrow">

@@ -21,9 +21,8 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\PagesController::class, 'welcome']);
 
+Route::get('/home', [App\Http\Controllers\PagesController::class, 'home']);
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/home', [App\Http\Controllers\PagesController::class, 'home']);
-
     // erp
     Route::get('/erp/{id}', [App\Http\Controllers\PagesController::class, 'erp']);
     Route::get('/erp-create', [App\Http\Controllers\PagesController::class, 'erp_create']);
@@ -84,5 +83,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'user'])->group(function () {
-
+    // erp
+    Route::get('/erp_user/{id}', [App\Http\Controllers\PagesController::class, 'erp_user']);
+    Route::get('/erp_recomendation', [App\Http\Controllers\PagesController::class, 'erp_recomendation']);
+    Route::post('erp-recomendation/store', [App\Http\Controllers\ErpRecomendationController::class, 'store']);
 });
