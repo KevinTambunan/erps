@@ -74,13 +74,6 @@
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="/modul">
-                    {{-- <i class="fas fa-fw fa-table"></i> --}}
-                    <i class="fa-fw fa-solid fa-file"></i>
-                    <span>Modul</span></a>
-            </li>
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
                 <a class="nav-link" href="/erp_recomendation">
                     {{-- <i class="fas fa-fw fa-table"></i> --}}
                     <i class="fa-fw fa-solid fa-bullseye"></i>
@@ -88,28 +81,21 @@
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="/function_area">
+                <a class="nav-link" href="/erp_report">
                     {{-- <i class="fas fa-fw fa-table"></i> --}}
                     <i class="fa-fw fa-solid fa-layer-group"></i>
                     <span>Report</span></a>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="/user_need">
-                    {{-- <i class="fas fa-fw fa-table"></i> --}}
-                    <i class="fa-fw fa-solid fa-user"></i>
-                    <span>ERP Usage</span></a>
-            </li>
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="/type">
+                <a class="nav-link" href="/owner">
                     {{-- <i class="fas fa-fw fa-table"></i> --}}
                     <i class="fa-fw fa-brands fa-slack"></i>
                     <span>Owner</span></a>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="/other_requirement">
+                <a class="nav-link" href="/company">
                     {{-- <i class="fas fa-fw fa-table"></i> --}}
                     <i class="fa-fw fa-solid fa-hashtag"></i>
                     <span>Company</span></a>
@@ -117,12 +103,12 @@
 
 
             <!-- Divider -->
-            {{-- <hr class="sidebar-divider"> --}}
+            <hr class="sidebar-divider">
 
             <!-- Heading -->
-            {{-- <div class="sidebar-heading">
+            <div class="sidebar-heading">
                 Addons
-            </div> --}}
+            </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
             {{-- <li class="nav-item">
@@ -146,18 +132,18 @@
             </li> --}}
 
             <!-- Nav Item - Charts -->
-            {{-- <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" href="/faq">
                     <i class="fa-solid fa-fw fa-circle-question"></i>
                     <span>FAQ</span></a>
-            </li> --}}
+            </li>
 
             <!-- Nav Item - Tables -->
-            {{-- <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" href="/feedback">
                     <i class="fa-solid fa-fw fa-circle-exclamation"></i>
                     <span>Feedback</span></a>
-            </li> --}}
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -273,7 +259,8 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <a href="/erp_recomendation" class="btn btn-primary mb-4"><i class="fa-solid fa-backward fa-sm"></i> Kembali</a>
+                    <a href="/erp_recomendation" class="btn btn-primary mb-4"><i
+                            class="fa-solid fa-backward fa-sm"></i> Kembali</a>
                     <div class="row">
                         <!-- Area Chart -->
                         <div class="col-xl-5 col-lg-5">
@@ -316,7 +303,7 @@
                                 <div class="card-body">
                                     <img src="{{ asset('assets/image/' . $erp->image) }}" alt=""
                                         srcset="" style="max-height: 150px">
-                                        
+
                                     <p class="mt-2">{{ $erp->description }}</p>
                                     <span>Link Download</span>
                                     <a href="{{ $erp->link }}">{{ $erp->link }}</a>

@@ -5,30 +5,86 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\Erp;
 use App\Models\ErpRecomendation;
+use App\Models\Faq;
+use App\Models\Feedback;
 use App\Models\FunctionArea;
 use App\Models\Fungsionalitas;
 use App\Models\Modul;
 use App\Models\OtherRequirement;
 use App\Models\Owner;
 use App\Models\Type;
+use App\Models\User;
 use App\Models\UserNeed;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PagesController extends Controller
 {
-    public function register_admin(){
+    public function register_admin()
+    {
         return view('auth.register_admin');
     }
+
+    public function faq_admin(){
+        $questions = Faq::all();
+        return view('admin.faq', compact(['questions']));
+    }
+
+    public function erp_report_admin()
+    {
+
+        $erp_recomendation = ErpRecomendation::all();
+        $erps = Erp::all();
+        // $i = 0;
+        $result = [];
+        for($i = 0; $i<count($erps); $i++){
+            $result[$i] = ErpRecomendation::groupBy('erp_id')
+            ->select('erp_id', DB::raw('count(*) as total'))
+            ->get();
+        }
+        $var = $result[0];
+        $res = [];
+
+        for($j=0; $j<count($var); $j++){
+            $res[$j] = $var[$j]->total;
+        }
+
+        return view('admin.erp-report', compact(['result', 'erps', 'res']));
+    }
+
+    public function user_report(){
+        $users = User::where('role', 'user')->get();
+        return view('admin.user-report', compact(['users']));
+    }
+    public function feedback_user()
+    {
+        $feedbacks = Feedback::all();
+        return view('feedback', compact(['feedbacks']));
+    }
+
+    public function faq_user()
+    {
+        $questions = Faq::all();
+        return view('faq', compact(['questions']));
+    }
+
     public function welcome()
     {
-        return view('welcome');
+        $erps = Erp::take(3)->get();
+        return view('welcome', compact(['erps']));
     }
 
     public function home()
     {
         if (Auth::user()->role == 'admin') {
-            return view('admin.index');
+            $erps = Erp::take(3)->get();
+            $erps_result = ErpRecomendation::where('user_id', Auth::user()->id)->take(5)->get();
+            $owner = Owner::where('user_id', Auth::user()->id)->get()->last();
+            $company = Company::where('user_id', Auth::user()->id)->get()->last();
+            $users = User::where('role', 'user')->get();
+            $faqs = Faq::all();
+            return view('admin.index', compact(['faqs','erps', 'erps_result', 'owner', 'company', 'users']));
         } else if (Auth::user()->role == 'user') {
             $erps = Erp::take(3)->get();
             $erps_result = ErpRecomendation::where('user_id', Auth::user()->id)->take(5)->get();

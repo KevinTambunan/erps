@@ -21,8 +21,12 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\PagesController::class, 'welcome']);
 Route::get('/register_admin', [App\Http\Controllers\PagesController::class, 'register_admin']);
+Route::get('/feedback_user', [App\Http\Controllers\PagesController::class, 'feedback_user']);
+Route::get('/faq_user', [App\Http\Controllers\PagesController::class, 'faq_user']);
 
 Route::get('/home', [App\Http\Controllers\PagesController::class, 'home']);
+
+
 Route::middleware(['auth', 'admin'])->group(function () {
     // erp
     Route::get('/erp/{id}', [App\Http\Controllers\PagesController::class, 'erp']);
@@ -81,6 +85,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/other_requirement-update/{id}', [App\Http\Controllers\OtherRequirementController::class, 'edit']);
     Route::post('/other_requirement/update/{id}', [App\Http\Controllers\OtherRequirementController::class, 'update']);
     Route::get('/other_requirement-delete/{id}', [App\Http\Controllers\OtherRequirementController::class, 'destroy']);
+
+    // report
+    Route::get('/user-report', [App\Http\Controllers\PagesController::class, 'user_report']);
+    Route::get('/erp-report-admin', [App\Http\Controllers\PagesController::class, 'erp_report_admin']);
+
+    // faq
+    Route::get('/faq-admin', [App\Http\Controllers\PagesController::class, 'faq_admin']);
+    Route::post('/faq_admin/create', [App\Http\Controllers\FaqController::class, 'store']);
+
 });
 
 Route::middleware(['auth', 'user'])->group(function () {
@@ -109,4 +122,13 @@ Route::middleware(['auth', 'user'])->group(function () {
 
     // profile
     Route::get('/profile', [App\Http\Controllers\PagesController::class, 'profile']);
+
+
+    // faq
+    Route::get('/faq', [App\Http\Controllers\FaqController::class, 'index']);
+
+    // feedback
+    Route::get('/feedback', [App\Http\Controllers\FeedbackController::class, 'index']);
+    Route::post('/feedback/create', [App\Http\Controllers\FeedbackController::class, 'store']);
+
 });

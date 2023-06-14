@@ -67,38 +67,52 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="/erp_user/1">
+                <a class="nav-link" href="/erp/1">
                     {{-- <i class="fas fa-fw fa-table"></i> --}}
                     <i class="fa-fw fa-solid fa-gear"></i>
                     <span>ERP</span></a>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="/erp_recomendation">
+                <a class="nav-link" href="/modul">
+                    {{-- <i class="fas fa-fw fa-table"></i> --}}
+                    <i class="fa-fw fa-solid fa-file"></i>
+                    <span>Modul</span></a>
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link" href="/fungsionalitas">
                     {{-- <i class="fas fa-fw fa-table"></i> --}}
                     <i class="fa-fw fa-solid fa-bullseye"></i>
-                    <span>Erp Rekomendation</span></a>
+                    <span>Fungsionalitas</span></a>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="/erp_report">
+                <a class="nav-link" href="/function_area">
                     {{-- <i class="fas fa-fw fa-table"></i> --}}
                     <i class="fa-fw fa-solid fa-layer-group"></i>
-                    <span>Report</span></a>
+                    <span>Function Area</span></a>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="/owner">
+                <a class="nav-link" href="/user_need">
+                    {{-- <i class="fas fa-fw fa-table"></i> --}}
+                    <i class="fa-fw fa-solid fa-user"></i>
+                    <span>User Needed</span></a>
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link" href="/type">
                     {{-- <i class="fas fa-fw fa-table"></i> --}}
                     <i class="fa-fw fa-brands fa-slack"></i>
-                    <span>Owner</span></a>
+                    <span>Type</span></a>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="/company">
+                <a class="nav-link" href="/other_requirement">
                     {{-- <i class="fas fa-fw fa-table"></i> --}}
                     <i class="fa-fw fa-solid fa-hashtag"></i>
-                    <span>Company</span></a>
+                    <span>Other Requirement</span></a>
             </li>
 
 
@@ -107,42 +121,36 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Addons
+                Report
             </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            {{-- <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>FAQ</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
-            </li> --}}
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="/faq">
-                    <i class="fa-solid fa-fw fa-circle-question"></i>
-                    <span>FAQ</span></a>
+                <a class="nav-link" href="/user-report">
+                    <i class="fa-solid fa-fw fa-circle-exclamation"></i>
+                    <span>User Report</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="/feedback">
+                <a class="nav-link" href="/erp-report-admin">
                     <i class="fa-solid fa-fw fa-circle-exclamation"></i>
-                    <span>Feedback</span></a>
+                    <span>Erp Report</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Addons
+            </div>
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="/faq-admin">
+                    <i class="fa-solid fa-fw fa-circle-question"></i>
+                    <span>Faq</span></a>
             </li>
 
             <!-- Divider -->
@@ -173,7 +181,8 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
                         method="POST" action="/searchPage">
                         @csrf
                         <div class="input-group">
@@ -219,13 +228,13 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                                @if (Auth::user()->owner->image == null)
+                                @if (Auth::user()->admin->image == null)
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                                         {{ Auth::user()->name }}
                                     </span>
                                 @else
                                     <img class="img-profile rounded-circle"
-                                        src="{{ asset('assets/image/' . Auth::user()->owner->image) }}">
+                                        src="{{ asset('assets/image/' . Auth::user()->admin->image) }}">
                                 @endif
 
                             </a>
@@ -257,7 +266,38 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                @yield('content')
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <!-- Area Chart -->
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <div>
+
+                                        <h6 class="m-0 font-weight-bold text-primary mb-2">ERP Report</h6>
+                                    </div>
+
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button"
+                                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-pie pt-4 pb-2">
+                                        <canvas id="res"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- /.container-fluid -->
 
             </div>
@@ -313,6 +353,52 @@
     <script src={{ asset('assets/js/vendor/chart-area.js') }}></script>
     <script src={{ asset('assets/js/vendor/chart-pie.js') }}></script>
 
+    <script>
+        var data = @json($res);
+        var erp = @json($erps);
+        var nama = [];
+        erp.forEach(element => {
+            nama.push(element.name);
+        });
+
+        // Set new default font family and font color to mimic Bootstrap's default styling
+        Chart.defaults.global.defaultFontFamily = 'Nunito',
+            '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontColor = '#858796';
+
+        // Pie Chart Example
+        var ctx = document.getElementById("res");
+        var myPieChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: nama,
+                datasets: [{
+                    data: data,
+                    backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+                    hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }],
+            },
+            options: {
+                display: true,
+                maintainAspectRatio: false,
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    caretPadding: 10,
+                },
+                legend: {
+                    display: false
+                },
+                cutoutPercentage: 0,
+            },
+        });
+    </script>
 </body>
 
 </html>
