@@ -167,10 +167,10 @@
                                 <h6 class="m-0 font-weight-bold text-primary">Moduls</h6>
                             </div>
                             <div class="card-body">
-                                {{-- @foreach ($erp->moduls as $item)
-                                    <h4 class="small font-weight-bold">{{ $item->deskripsi }} <span
+                                @foreach ($erp->modul as $item)
+                                    <h4 class="small font-weight-bold">{{ $item->name }} <span
                                             class="float-right"><i class="fa-solid fa-check"></i></span></h4>
-                                @endforeach --}}
+                                @endforeach
                             </div>
                         </div>
 
@@ -183,13 +183,13 @@
                         <!-- Illustrations -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Company Types</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Fungsionalitas</h6>
                             </div>
                             <div class="card-body">
-                                {{-- @foreach ($erp->types as $item)
-                                    <h4 class="small font-weight-bold">{{ $item->deskripsi }} <span
+                                @foreach ($erp->fungsionalitas as $item)
+                                    <h4 class="small font-weight-bold">{{ $item->name }} <span
                                             class="float-right"><i class="fa-solid fa-check"></i></span></h4>
-                                @endforeach --}}
+                                @endforeach
                             </div>
                         </div>
                     </div>
