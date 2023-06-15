@@ -44,7 +44,7 @@
                                             <tr>
                                                 <th>Type Name</th>
                                                 <th>Value</th>
-                                                <th>Bobot</th>
+                                                {{-- <th>Bobot</th> --}}
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -57,9 +57,9 @@
                                                     <td>
                                                         {{$type->erp->name}}
                                                     </td>
-                                                    <td>
+                                                    {{-- <td>
                                                         {{$type->bobot}}
-                                                    </td>
+                                                    </td> --}}
                                                     <td>
                                                         <a href="/type-update/{{$type->id}}"
                                                             class=" btn btn-sm btn-primary shadow-sm"><i

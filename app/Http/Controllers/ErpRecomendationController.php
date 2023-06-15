@@ -10,6 +10,7 @@ use App\Models\Modul;
 use App\Models\OtherRequirement;
 use App\Models\Type;
 use App\Models\UserNeed;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -60,40 +61,115 @@ class ErpRecomendationController extends Controller
             $result[$i] = 0;
             $i++;
         }
-        // dd($result);
+
+        function nilaiTerdekat($array, $nilai)
+        {
+            $terdekat = null;
+            $jarakTerdekat = null;
+
+            foreach ($array as $angka) {
+                $jarak = abs($angka - $nilai);
+                if ($jarakTerdekat === null || $jarak < $jarakTerdekat) {
+                    $jarakTerdekat = $jarak;
+                    $terdekat = $angka;
+                } elseif ($jarak === $jarakTerdekat && $angka > $terdekat) {
+                    $terdekat = $angka;
+                }
+            }
+
+            return $terdekat;
+        }
 
         // modul
         foreach ($request->keys() as $item) {
+            $temp = 0;
+            $nilai = [];
             foreach ($moduls as $modul) {
                 if ("modul" . $modul->name == str_replace("_", " ", $item)) {
-                    for ($i = 0; $i < count($erps); $i++) {
-                        $result[$i] += $modul->erp[$i]->pivot->bobot;
+                    $modul_arr = explode("modul", $item);
+                    foreach ($request->keys() as $item2) {
+                        if ("bobot" . $modul_arr[1] == $item2) {
+                            $sementara = 0;
+                            foreach ($modul->erp as $bobot) {
+                                $selisih = $bobot->pivot->bobot;
+                                $nilai[$sementara] = $selisih;
+                                $sementara++;
+                            }
+                            $nilai_max = nilaiTerdekat($nilai, $request->$item2);
+                            $index_dekat = array_search($nilai_max, $nilai);
+                            $result[$index_dekat] += 1;
+                        }
                     }
                 }
+                $temp++;
             }
         }
-
+        // dd($request->keys());
         // fungsionalitas
         foreach ($request->keys() as $item) {
-            foreach ($fungsionalitas as $fungsionalita) {
-                if ("fungsionalitas" . $fungsionalita->name == str_replace("_", " ", $item)) {
-                    for ($i = 0; $i < count($erps); $i++) {
-                        $result[$i] += $fungsionalita->erp[$i]->pivot->bobot;
+            // foreach ($fungsionalitas as $fungsionalita) {
+            //     if ("fungsionalitas" . $fungsionalita->name == str_replace("_", " ", $item)) {
+            //         for ($i = 0; $i < count($erps); $i++) {
+            //             $result[$i] += $fungsionalita->erp[$i]->pivot->bobot;
+            //         }
+            //     }
+            // }
+            $temp = 0;
+            $nilai = [];
+            foreach ($fungsionalitas as $modul) {
+                if ("fungsionalitas" . $modul->name == str_replace("_", " ", $item)) {
+                    $modul_arr = explode("fungsionalitas", $item);
+                    foreach ($request->keys() as $item2) {
+                        if ("bobot" . $modul_arr[1] == $item2) {
+                            $sementara = 0;
+                            foreach ($modul->erp as $bobot) {
+                                $selisih = $bobot->pivot->bobot;
+                                $nilai[$sementara] = $selisih;
+                                $sementara++;
+                            }
+                            $nilai_max = nilaiTerdekat($nilai, $request->$item2);
+                            $index_dekat = array_search($nilai_max, $nilai);
+                            $result[$index_dekat] += 1;
+                        }
                     }
                 }
+                $temp++;
             }
         }
 
         // Function Area
         foreach ($request->keys() as $item) {
-            foreach ($function_area as $function_are) {
-                if ("function area" . $function_are->name == str_replace("_", " ", $item)) {
-                    for ($i = 0; $i < count($erps); $i++) {
-                        $result[$i] += $function_are->erp[$i]->pivot->bobot;
+            // foreach ($function_area as $function_are) {
+            //     if ("function area" . $function_are->name == str_replace("_", " ", $item)) {
+            //         for ($i = 0; $i < count($erps); $i++) {
+            //             $result[$i] += $function_are->erp[$i]->pivot->bobot;
+            //         }
+            //     }
+            // }
+            $temp = 0;
+            $nilai = [];
+            foreach ($function_area as $modul) {
+                if ("functionarea" . $modul->name == str_replace("_", " ", $item)) {
+                    $modul_arr = explode("functionarea", $item);
+
+                    foreach ($request->keys() as $item2) {
+                        if ("bobot" . $modul_arr[1] == $item2) {
+                            $sementara = 0;
+                            foreach ($modul->erp as $bobot) {
+                                $selisih = $bobot->pivot->bobot;
+                                $nilai[$sementara] = $selisih;
+                                $sementara++;
+                            }
+                            $nilai_max = nilaiTerdekat($nilai, $request->$item2);
+                            $index_dekat = array_search($nilai_max, $nilai);
+                            $result[$index_dekat] += 1;
+                        }
                     }
                 }
+                $temp++;
             }
         }
+
 
         // user need
         foreach ($user_needs as $user_need) {
@@ -136,7 +212,6 @@ class ErpRecomendationController extends Controller
                 $result[$b] += $other_requirement->bobot;
             }
         }
-
         $max = max($result);
         $index = array_search($max, $result);
         $erp = $erps[$index];
@@ -144,7 +219,7 @@ class ErpRecomendationController extends Controller
             'user_id' => Auth::user()->id,
             'erp_id' => $erp->id
         ]);
-        
+
         return view('user.erp-result', compact(['result', 'erp', 'erps']));
     }
 

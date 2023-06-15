@@ -21,6 +21,95 @@ use Illuminate\Support\Facades\DB;
 
 class PagesController extends Controller
 {
+    public function not_found(){
+        return view('not-found');
+    }
+    public function searchPageUser(Request $request){
+        if($request->search == 'home'){
+            return redirect('/home');
+        }
+        else if($request->search == 'profile'){
+            return redirect('/profile');
+        }
+        else if($request->search == 'company'){
+            return redirect('/company');
+        }
+        else if($request->search == 'owner'){
+            return redirect('/owner');
+        }
+        else if($request->search == 'erp'){
+            return redirect('/erp_user/1');
+        }
+        else if($request->search == 'odoo'){
+            return redirect('/erp/1');
+        }
+        else if($request->search == 'dolibarr'){
+            return redirect('/erp/2');
+        }
+        else if($request->search == 'sap'){
+            return redirect('/erp/3');
+        }
+        else if($request->search == 'history'){
+            return redirect('/erp_report');
+        }
+        else if($request->search == 'report'){
+            return redirect('/erp_report');
+        }
+        else if($request->search == 'erp recomendation'){
+            return redirect('/erp_recomendation');
+        }
+        else if($request->search == 'faq'){
+            return redirect('/faq');
+        }
+        else if($request->search == 'feedback'){
+            return redirect('/feedback');
+        }else{
+            return redirect('/not-found');
+        }
+    }
+    public function searchPageAdmin(Request $request){
+        if($request->search == 'home'){
+            return redirect('/home');
+        }
+        else if($request->search == 'erp'){
+            return redirect('/erp/1');
+        }
+        else if($request->search == 'modul'){
+            return redirect('/modul');
+        }
+        else if($request->search == 'fungsionalitas'){
+            return redirect('/fungsionalitas');
+        }
+        else if($request->search == 'function area'){
+            return redirect('/function_area');
+        }
+        else if($request->search == 'odoo'){
+            return redirect('/erp/1');
+        }
+        else if($request->search == 'dolibarr'){
+            return redirect('/erp/2');
+        }
+        else if($request->search == 'sap'){
+            return redirect('/erp/3');
+        }
+        else if($request->search == 'user need'){
+            return redirect('/user_need');
+        }
+        else if($request->search == 'type'){
+            return redirect('/type');
+        }
+        else if($request->search == 'other requirement'){
+            return redirect('/other_requirement');
+        }
+        else if($request->search == 'user report'){
+            return redirect('/user-report');
+        }
+        else if($request->search == 'faq admin'){
+            return redirect('/faq-admin');
+        }else{
+            return redirect('/not-found');
+        }
+    }
     public function register_admin()
     {
         return view('auth.register_admin');

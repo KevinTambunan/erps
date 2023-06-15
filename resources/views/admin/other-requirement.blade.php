@@ -44,7 +44,7 @@
                                             <tr>
                                                 <th>Type Name</th>
                                                 <th>Value</th>
-                                                <th>Bobot</th>
+                                                {{-- <th>Bobot</th> --}}
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -57,9 +57,9 @@
                                                     <td>
                                                         {{$other_requiremen->erp->name}}
                                                     </td>
-                                                    <td>
+                                                    {{-- <td>
                                                         {{$other_requiremen->bobot}}
-                                                    </td>
+                                                    </td> --}}
                                                     <td>
                                                         <a href="/other_requirement-update/{{$other_requiremen->id}}"
                                                             class=" btn btn-sm btn-primary shadow-sm"><i

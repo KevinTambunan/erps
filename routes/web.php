@@ -25,9 +25,11 @@ Route::get('/feedback_user', [App\Http\Controllers\PagesController::class, 'feed
 Route::get('/faq_user', [App\Http\Controllers\PagesController::class, 'faq_user']);
 
 Route::get('/home', [App\Http\Controllers\PagesController::class, 'home']);
+Route::get('/not-found', [App\Http\Controllers\PagesController::class, 'not_found']);
 
 
 Route::middleware(['auth', 'admin'])->group(function () {
+    Route::post('/searchPageAdmin', [App\Http\Controllers\PagesController::class, 'searchPageAdmin']);
     // erp
     Route::get('/erp/{id}', [App\Http\Controllers\PagesController::class, 'erp']);
     Route::get('/erp-create', [App\Http\Controllers\PagesController::class, 'erp_create']);
@@ -97,6 +99,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'user'])->group(function () {
+    Route::post('/searchPageUser', [App\Http\Controllers\PagesController::class, 'searchPageUser']);
+
     // erp
     Route::get('/erp_user/{id}', [App\Http\Controllers\PagesController::class, 'erp_user']);
     Route::get('/erp_recomendation', [App\Http\Controllers\PagesController::class, 'erp_recomendation']);

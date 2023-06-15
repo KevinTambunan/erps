@@ -21,9 +21,18 @@
                     <div class="card-body">
                         <form action="erp-recomendation/store" method="post">
                             @csrf
+                            {{-- <label for="customRange2" class="form-label">Example range</label>
+                            <input type="range" class="form-range" min="1" max="10" id="customRange2" name="bobot"> --}}
+
+                            {{-- <div class="form-group">
+                                <label for="customRange">Bobot : </label>
+                                <input type="range" class="form-range" id="customRange" min="1" max="10" name="bobot">
+                                <p id="rangeValue"></p>
+                            </div> --}}
                             {{-- modul --}}
                             <div class="form-group" id="modul">
-                                1. Apa saja Modul yang anda butuhkan didalam penerapan ERP yang nantinya akan direkomendasikan untuk mencapai tujuan  ?
+                                1. Apa saja Modul yang anda butuhkan didalam penerapan ERP yang nantinya akan
+                                direkomendasikan untuk mencapai tujuan ?
                                 @php
                                     $i = 0;
                                 @endphp
@@ -34,6 +43,16 @@
                                         <label class="form-check-label" for="{{ 'modul' . $modul->name }}">
                                             {{ $modul->name }}
                                         </label>
+                                        <div class="row">
+                                            <div class="col-md-3" id="{{ 'bobot' . $modul->name }}" style="display: none"
+                                                data-bobot="modul">
+                                                <label for="{{ $modul->name }}">Seberapa butuh anda akan modul ini?
+                                                    (1-10)
+                                                </label>
+                                                <input type="range" class="form-range" id="{{ $modul->name }}"
+                                                    min="1" max="10" name="{{ 'bobot' . $modul->name }}">
+                                            </div>
+                                        </div>
                                     </div>
                                     @php
                                         $i++;
@@ -53,15 +72,28 @@
                             {{-- fungsionalitas --}}
                             <div class="form-group" id="fungsionalitas" style="display: none">
                                 2. Apakah Fungsionalitas utaman yang harus dimiliki ERP_Recommendation yang Anda harapkan?
-                                @foreach ($fungsionalitas as $fungsionalitas)
+                                @foreach ($fungsionalitas as $fungsionalita)
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox"
-                                            name="{{ 'fungsionalitas' . $fungsionalitas->name }}"
-                                            value="{{ $fungsionalitas->id }}" id="{{ $fungsionalitas->name }}"
-                                            data-question="2">
-                                        <label class="form-check-label" for="{{ $fungsionalitas->name }}">
-                                            {{ $fungsionalitas->name }}
+                                            name="{{ 'fungsionalitas' . $fungsionalita->name }}"
+                                            value="{{ $fungsionalita->id }}"
+                                            id="{{ 'fungsionalitas' . $fungsionalita->name }}" data-question="2">
+                                        <label class="form-check-label"
+                                            for="{{ 'fungsionalitas' . $fungsionalita->name }}">
+                                            {{ $fungsionalita->name }}
                                         </label>
+                                        <div class="row">
+                                            <div class="col-md-4" id="{{ 'bobot' . $fungsionalita->name }}"
+                                                data-bobot="fungsionalitas" style="display: none">
+                                                <label for="{{ $fungsionalita->name }}">Seberapa butuh anda akan
+                                                    fungsionalitas ini?
+                                                    (1-10)
+                                                </label>
+                                                <input type="range" class="form-range" id="{{ $fungsionalita->name }}"
+                                                    min="1" max="10"
+                                                    name="{{ 'bobot' . $fungsionalita->name }}">
+                                            </div>
+                                        </div>
                                     </div>
                                 @endforeach
 
@@ -79,16 +111,30 @@
 
                             {{-- function area --}}
                             <div class="form-group" id="function_area" style="display: none">
-                                3. Apa saja area fungsional spesifik yang harus ada untuk memenuhi kebutuhan Anda dalam penerapan ERP?
+                                3. Apa saja area fungsional spesifik yang harus ada untuk memenuhi kebutuhan Anda dalam
+                                penerapan ERP?
                                 @foreach ($function_area as $function_are)
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox"
-                                            name="{{ 'function area' . $function_are->name }}"
-                                            value="{{ $function_are->id }}" id="{{ $function_are->name }}"
+                                            name="{{ 'functionarea' . $function_are->name }}"
+                                            value="{{ $function_are->id }}" id="{{ 'functionarea' . $function_are->name }}"
                                             data-question="3">
-                                        <label class="form-check-label" for="{{ $function_are->name }}">
+                                        <label class="form-check-label" for="{{ 'functionarea' . $function_are->name }}">
                                             {{ $function_are->name }}
                                         </label>
+
+                                        <div class="row">
+                                            <div class="col-md-4" id="{{ 'bobot' . $function_are->name }}" style="display: none"
+                                                data-bobot="function_area">
+                                                <label for="{{ $function_are->name }}">Seberapa butuh anda akan
+                                                    function area ini?
+                                                    (1-10)
+                                                </label>
+                                                <input type="range" class="form-range" id="{{ $function_are->name }}"
+                                                    min="1" max="10"
+                                                    name="{{ 'bobot' . $function_are->name }}">
+                                            </div>
+                                        </div>
                                     </div>
                                 @endforeach
 
@@ -106,7 +152,8 @@
 
                             {{-- user need --}}
                             <div class="form-group" id="user_need" style="display: none">
-                                4. Berapakah perkiraan jumlah pengguna yang nantinya akan menggunakan ERP yang direkomendasikan?
+                                4. Berapakah perkiraan jumlah pengguna yang nantinya akan menggunakan ERP yang
+                                direkomendasikan?
                                 @foreach ($user_needs as $user_need)
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="user_need"
@@ -174,6 +221,8 @@
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block mt-4">Submit</button>
                             </div>
+
+                            {{-- <button class="btn btn-primary" type="submit">submit</button> --}}
                         </form>
                     </div>
                 </div>
@@ -181,6 +230,67 @@
         </div>
 
     </div>
+    <script>
+        var datas = @json($moduls);
+        datas.forEach(element => {
+            var checkbox = document.getElementById('modul' + element.name);
+            var test = document.getElementById('bobot' + element.name);
+
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    // Checkbox dicentang
+                    // alert('Checkbox dicentang');
+                    test.style.display = '';
+                } else {
+                    // Checkbox tidak dicentang
+                    // alert('Checkbox tidak dicentang');
+                    test.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+    <script>
+        var data2 = @json($fungsionalitas);
+        data2.forEach(element => {
+            var checkbox = document.getElementById('fungsionalitas' + element.name);
+            var test = document.getElementById('bobot' + element.name);
+
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    // Checkbox dicentang
+                    // alert('Checkbox dicentang');
+                    test.style.display = '';
+                } else {
+                    // Checkbox tidak dicentang
+                    // alert('Checkbox tidak dicentang');
+                    test.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+    <script>
+        var data3 = @json($function_area);
+        data3.forEach(element => {
+            var checkbox = document.getElementById('functionarea' + element.name);
+            var test = document.getElementById('bobot' + element.name);
+
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    // Checkbox dicentang
+                    // alert('Checkbox dicentang');
+                    test.style.display = '';
+                } else {
+                    // Checkbox tidak dicentang
+                    // alert('Checkbox tidak dicentang');
+                    test.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+
 
     <script>
         var modul = document.getElementById("modul");
@@ -250,6 +360,12 @@
                 pertanyaan1Checked[i].checked = false;
             }
             checkModulError = true;
+            var datas = @json($moduls);
+            datas.forEach(element => {
+                var checkbox = document.getElementById('modul' + element.name);
+                var test = document.getElementById('bobot' + element.name);
+                test.style.display = 'none';
+            });
         }
 
         function clearFungsionalitas() {
@@ -257,6 +373,12 @@
                 pertanyaan2Checked[i].checked = false;
             }
             checkFungsionalitasError = true;
+            var datas = @json($fungsionalitas);
+            datas.forEach(element => {
+                var checkbox = document.getElementById('fungsionalitas' + element.name);
+                var test = document.getElementById('bobot' + element.name);
+                test.style.display = 'none';
+            });
         }
 
         function clearFunctionArea() {
@@ -264,6 +386,12 @@
                 pertanyaan3Checked[i].checked = false;
             }
             checkFunctionAreaError = true;
+            var datas = @json($function_area);
+            datas.forEach(element => {
+                var checkbox = document.getElementById('functionarea' + element.name);
+                var test = document.getElementById('bobot' + element.name);
+                test.style.display = 'none';
+            });
         }
 
         function nextModul() {
@@ -357,6 +485,5 @@
             type.style.display = '';
             other_requirement.style.display = 'none';
         }
-        
     </script>
 @endsection

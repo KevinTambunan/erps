@@ -44,7 +44,7 @@
                                             <tr>
                                                 <th>User Need Name</th>
                                                 <th>Value</th>
-                                                <th>Bobot</th>
+                                                {{-- <th>Bobot</th> --}}
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -57,9 +57,9 @@
                                                     <td>
                                                         {{$user_need->erp->name}}
                                                     </td>
-                                                    <td>
+                                                    {{-- <td>
                                                         {{$user_need->bobot}}
-                                                    </td>
+                                                    </td> --}}
                                                     <td>
                                                         <a href="/user-need-update/{{$user_need->id}}"
                                                             class=" btn btn-sm btn-primary shadow-sm"><i

@@ -33,9 +33,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="bobot">Bobot</label>
-                                <input type="number" class="form-control @error('bobot') is-invalid @enderror"
-                                    id="bobot" name="bobot" value="{{ $otherRequirement->bobot }}">
+                                <input type="hidden" class="form-control @error('bobot') is-invalid @enderror"
+                                    id="bobot" name="bobot" value="1">
                                 @error('bobot')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
